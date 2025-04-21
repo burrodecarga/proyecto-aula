@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { Slot } from 'expo-router'
 
 const AulaAppLayout = () => {
     return (
-        <View>
-            <Text>AulaAppLayout</Text>
-        </View>
+        <Slot />
     )
 }
 

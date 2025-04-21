@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useAuthStore } from '@/presentacion/auth/store/useAuthStore'
 import Indicador from '@/presentacion/theme/components/Indicador'
 import { Redirect, Stack } from 'expo-router'
+import LogoutIconButton from '@/presentacion/auth/components/LogoutIconButton'
 
 const MainLayout = () => {
 
@@ -14,20 +15,19 @@ const MainLayout = () => {
     }, [])
 
     console.log(status)
-    if (status === 'chequing') {
+    if (status === 'checking') {
 
         return (<Indicador />)
     }
 
-    if (status === 'unautenticated') {
+    if (status === 'unauthenticated') {
 
         return <Redirect href={'/auth/login'} />
     }
     return (
         <Stack>
-            <Stack.Screen name='(main)/(aula-app)(home)/index'
-                options={{ title: 'Aula' }
-
+            <Stack.Screen name='(aula-app)'
+                options={{ title: 'Aula', headerLeft: () => <LogoutIconButton /> }
                 }
             />
         </Stack>

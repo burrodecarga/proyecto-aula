@@ -1,4 +1,5 @@
 import { appApi } from "@/core/api/app/appApi"
+import { Alert } from "react-native"
 
 
 export interface LoginResponse {
@@ -25,8 +26,9 @@ const returnUserTokens = (data: LoginResponse): { user: User, token: string } =>
 export const authLogin = async (email: string, password: string) => {
 
     email = email.toLowerCase()
+    //console.log('usando /login', email, password)
     try {
-        const { data } = await appApi.post<LoginResponse>('auth/login', { email, password })
+        const { data } = await appApi.post<LoginResponse>('/login', { email, password })
         return returnUserTokens(data)
     } catch (error) {
         console.log(error)
@@ -37,10 +39,35 @@ export const authLogin = async (email: string, password: string) => {
 }
 
 export const authCheckStatus = async () => {
+
     try {
-        const { data } = await appApi.get<LoginResponse>('auth/check-status')
+        const { data } = await appApi.get<LoginResponse>('/check-status')
         return returnUserTokens(data)
     } catch (error) {
         return null
     }
+}
+
+
+export const authPrueba = async () => {
+
+
+    fetch("http://192.168.1.11:8000/api/v1/test", {
+        method: "GET",
+        // headers: {
+        //     Accept: "application/json",
+        //     "Content-Type": "application/json",
+        // },
+
+    })
+        .then((response) => response.json())
+        .then((responseJson) => {
+            console.log(responseJson)
+
+            Alert.alert("logged")
+
+        })
+        .catch((error) => {
+            console.log('erroc message')
+        })
 }
